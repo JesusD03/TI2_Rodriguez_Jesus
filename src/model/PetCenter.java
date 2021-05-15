@@ -69,7 +69,7 @@ public class PetCenter{
 				veterinarians[i] = null;
 				System.out.println("The vet was successfully eliminated");
 			}
-		} if (find = false) {
+		} if (find == false) {
 			System.out.println("El Id que ingreso no coincide con el de ningun veterinario");
 		}
 	}

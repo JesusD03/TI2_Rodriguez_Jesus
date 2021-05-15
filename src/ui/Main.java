@@ -47,6 +47,7 @@ public class Main{
 			newPet();
 			break;
 			case 4:
+			removePet();
 			break;
 			case 5:
 			break;
@@ -140,10 +141,39 @@ public class Main{
 		} else {
 			 prioridad = Priority.PRIORIDAD_5;
 		}
-		if (chose == 1 || chose == 2) {
-			mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad, race);
+		if (comprobacion(petName, ownerName)) {
+			System.out.println("Esta combinacion de nombre de la mascota y del propietario ya existe");
 		} else {
-			mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad);
+			if (chose == 1 || chose == 2) {
+				mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad, race);
+			} else {
+				mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad);
+			}
 		}
 	}
+	public boolean comprobacion(String petName, String ownerName){
+		boolean find = false;
+		for(int i = 0; i < mascotas.getPets().length && !find; i++){
+			if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getName().equalsIgnoreCase(petName)) && (mascotas.getPets()[i].getOwner() != null && mascotas.getPets()[i].getOwner().getName().equalsIgnoreCase(ownerName))) {
+				find = true;
+			}
+		} 
+		return find;
+	}
+	public void removePet(){
+		System.out.println("Ingrese el nombre de la mascota");
+		String petName = sc.nextLine();
+		System.out.println("Ingrese el ID del propietario de la mascota");
+		String idNumber = sc.nextLine();
+		boolean find = false;
+		for(int i = 0; i < mascotas.getPets().length && !find; i++){
+			if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getName().equalsIgnoreCase(petName)) && (mascotas.getPets()[i].getOwner() != null && mascotas.getPets()[i].getOwner().getIdNumber().equalsIgnoreCase(idNumber))) {
+				if (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
+					mascotas.removePet(petName, idNumber);
+				}
+				find = true;
+			}
+		}
+	}
+	
 }
