@@ -5,6 +5,7 @@ public class Pet{
 	private int age;
 	private String symptoms;
 	private int order;
+	private String race;
 	//relationships
 	private Veterinary veterinary;
 	private Specie specie;
@@ -20,6 +21,17 @@ public class Pet{
 		this.symptoms = symptoms;
 		this.priority = priority;
 		this.order = order;
+		status = Status.ESPERANDO_SER_ATENDIDO;
+	}
+	public Pet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority, int order, String race){
+		this.name = name;
+		this.age = age;
+		this.specie = specie;
+		this.owner = owner;
+		this.symptoms = symptoms;
+		this.priority = priority;
+		this.order = order;
+		this.race = race;
 		status = Status.ESPERANDO_SER_ATENDIDO;
 	}
 	//set
@@ -43,6 +55,9 @@ public class Pet{
 	}
 	public void setStatus(Status status){
 		this.status = status;
+	}
+	public void setRace(String race){
+		this.race = race;
 	}
 	public void setVeterinery(Veterinary veterinary){
 		this.veterinary = veterinary;
@@ -71,6 +86,9 @@ public class Pet{
 	}
 	public Status getStatus(){
 		return status;
+	}
+	public String getRace(){
+		return race;
 	}
 	public Veterinary getVeterinary(){
 		return veterinary;

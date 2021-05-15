@@ -18,8 +18,23 @@ public class PetCenter{
 				pets[i] = new Pet(name, age, specie, owner, symptoms, priority, order);
 				empty = true;
 				order ++;
-				System.out.print("the pet was added successfully");
+				System.out.print("the pet was added successfully\n");
 			}
+		} if (empty == false) {
+			System.out.println("No se pudo agregar la mascota porque se llego a la capacidad maxima\n");
+		}
+	}
+	public void addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority, String race){
+		boolean empty = false;
+		for(int i = 0; i < MAX_PETS && !empty; i++){
+			if(pets[i] == null){
+				pets[i] = new Pet(name, age, specie, owner, symptoms, priority, order, race);
+				empty = true;
+				order ++;
+				System.out.print("the pet was added successfully\n");
+			}
+		} if (empty == false) {
+			System.out.println("No se pudo agregar la mascota porque se llego a la capacidad maxima\n");
 		}
 	}
 	public void removePet(String name, String idNumber){
@@ -54,6 +69,8 @@ public class PetCenter{
 				veterinarians[i] = null;
 				System.out.println("The vet was successfully eliminated");
 			}
+		} if (find = false) {
+			System.out.println("El Id que ingreso no coincide con el de ningun veterinario");
 		}
 	}
 	//get
