@@ -19,10 +19,10 @@ public class Veterinary{
 		this.petsAttended = 0;
 	}
 	//set
-	public void setCc(Strin cc){
+	public void setCc(String cc){
 		this.cc = cc;
 	}
-	public void setName(Strin name){
+	public void setName(String name){
 		this.name = name;
 	}
 	public void setLastName(String lastName){
