@@ -6,6 +6,7 @@ public class Pet{
 	private String symptoms;
 	private int order;
 	//relationships
+	private Veterinary veterinary;
 	private Specie specie;
 	private Priority priority;
 	private Owner owner;
@@ -43,6 +44,9 @@ public class Pet{
 	public void setStatus(Status status){
 		this.status = status;
 	}
+	public void setVeterinery(Veterinary veterinary){
+		this.veterinary = veterinary;
+	}
 	//get
 	public String getName(){
 		return name;
@@ -67,6 +71,9 @@ public class Pet{
 	}
 	public Status getStatus(){
 		return status;
+	}
+	public Veterinary getVeterinary(){
+		return veterinary;
 	}
 	//toString
 	public String toString(){

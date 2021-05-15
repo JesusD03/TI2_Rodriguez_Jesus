@@ -34,9 +34,6 @@ public class Veterinary{
 	public void setStatus(String status){
 		this.status = status;
 	}
-	public void setPetsAttended(int petsAttended){
-		this.petsAttended = petsAttended;
-	}
 	//get
 	public String getCc(){
 		return cc;
