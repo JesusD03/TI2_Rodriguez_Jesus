@@ -50,8 +50,10 @@ public class Main{
 			removePet();
 			break;
 			case 5:
+			startConsultation();
 			break;
 			case 6:
+			finishConsultation();
 			break;
 			case 7:
 			break;
@@ -267,5 +269,5 @@ public class Main{
 			}
 		}
 	}
-
+	public void 
 }
