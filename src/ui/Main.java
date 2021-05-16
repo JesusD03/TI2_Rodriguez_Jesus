@@ -10,6 +10,7 @@ import java.util.Scanner;                         	// javac -cp src src/ui/Main.
 													// javadoc -cp src -subpackages model:ui -d docs/javadoc/
 public class Main{
 	public static Scanner sc;
+	public boolean logout = false;
 	public PetCenter mascotas = new PetCenter();
 
 	public static void main (String [] args){
@@ -33,7 +34,7 @@ public class Main{
 		option = sc.nextInt();
 		sc.nextLine();
 		menu(option);
-		}while(option != 8);
+		}while(option != 8 || !logout);
 	}
 	public void menu(int option){
 		switch(option){
@@ -56,8 +57,10 @@ public class Main{
 			finishConsultation();
 			break;
 			case 7:
+			petNumber();
 			break;
 			case 8:
+			logout();
 			break;
 			default:
 				System.out.println("Opcion invalida");
@@ -186,6 +189,8 @@ public class Main{
 					if (nextConsultation() != -1) {
 						mascotas.getPets()[nextConsultation()].setStatus(Status.EN_CONSULTA);
 						mascotas.getPets()[nextConsultation()].setVeterinery(mascotas.getVeterinarians()[i]);
+						int count = mascotas.getVeterinarians()[i].getPetsAttended();
+						mascotas.getVeterinarians()[i].setPetsAttended(count++);
 					} else {
 						System.out.println("Ya no quedan mascotas por atender");
 					}
@@ -269,5 +274,75 @@ public class Main{
 			}
 		}
 	}
-	public void 
+	public void petNumber(){
+		int total = 0;
+		for (int i = 0; i < mascotas.getPets().length; i++) {
+			if (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
+				total++;
+			}
+		}
+		System.out.println("El numero de mascotas que faltan por atender son: "+total);
+	}
+	public void logout(){
+		boolean find = false;
+		for (int i = 0; i < mascotas.getPets().length && !find; i++) {
+			if (mascotas.getPets()[i] != null && mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
+				System.out.println("No se puede realizar el cierre del PetCenter porque aun quedan mascotas por atender");
+				find = true;
+			}
+		} if (find == false) {
+			int max = 0;
+			for (int i = 0; i < mascotas.getVeterinarians().length ; i++) {
+				if (mascotas.getVeterinarians()[i] != null && max < mascotas.getVeterinarians()[i].getPetsAttended()) {
+					max = mascotas.getVeterinarians()[i].getPetsAttended();
+				}
+			} System.out.println("El veterinario que tuvo el mayor numero de consultas fue: " + mascotas.getVeterinarians()[max].getName());
+			int count =0;
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_1) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
+					count++;
+				} 
+			} System.out.println("La cantidad de mascotas atendidas de prioridad 1 fueron: "+ count); 
+			int count1 =0;
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_2) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
+					 count1++;
+				} 
+			} System.out.println("La cantidad de mascotas atendidas de prioridad 2 fueron: "+ count1);
+			int count2 =0;
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_3) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
+					 count2++;
+				} 
+			} System.out.println("La cantidad de mascotas atendidas de prioridad 3 fueron: "+ count2);
+			int count3 =0;
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_4) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
+					 count3++;
+				} 
+			} System.out.println("La cantidad de mascotas atendidas de prioridad 4 fueron: "+ count3);
+			int count4 =0;
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_5) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
+					 count4++;
+				} 
+			} System.out.println("La cantidad de mascotas atendidas de prioridad 5 fueron: "+ count4);
+			int percentage = 0;
+			int without = 0;
+			int total = 0;
+			for (int i = 0; i < mascotas.getPets().length; i++) {
+				if (mascotas.getPets()[i] != null && mascotas.getPets()[i].getStatus() == Status.SALIDA_SIN_ATENCION) {
+					without++;
+				} total++;
+			} 
+			percentage = (without * 100)/total;
+			System.out.println("El porcentaje de mascotas que se fueron sin atender son: "+percentage+" %");
+			for (int i = 0; i < mascotas.getPets().length; i++) {
+				if (mascotas.getPets()[i] != null && mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA) {
+					mascotas.getPets()[i] = null;
+				}
+			}
+			logout = true;
+		}
+	}
 }
