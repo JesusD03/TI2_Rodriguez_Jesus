@@ -175,5 +175,97 @@ public class Main{
 			}
 		}
 	}
-	
+	public void startConsultation(){
+		System.out.println("Ingrese el numero de Documento del veterinario");
+		String cc = sc.nextLine();
+		for (int i = 0; i < mascotas.getVeterinarians().length; i++) {
+			if (mascotas.getVeterinarians()[i]!=null && mascotas.getVeterinarians()[i].getCc().equalsIgnoreCase(cc)) {
+				if (mascotas.getVeterinarians()[i].getStatus().equalsIgnoreCase("disponible")) {
+					if (nextConsultation() != -1) {
+						mascotas.getPets()[nextConsultation()].setStatus(Status.EN_CONSULTA);
+						mascotas.getPets()[nextConsultation()].setVeterinery(mascotas.getVeterinarians()[i]);
+					} else {
+						System.out.println("Ya no quedan mascotas por atender");
+					}
+				} else {
+					System.out.println("El veterinario que eligio no se encuentra disponible");
+				}
+			} else {
+				System.out.println("El numero de Documento que ingreso no corresponde al de ningun veterinario");
+			}
+		}
+	}
+	public int nextConsultation(){
+		boolean find = false;
+		int pos = -1;
+		for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+			if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_1) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+				find = true;
+				pos = i;
+			} 
+		} if (find == false) {
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_2) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+					find = true;
+					pos = i;
+				} 
+			}
+		} if (find == false) {
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_3) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+					find = true;
+					pos = i;
+				} 
+			}
+		} if (find == false) {
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_4) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+					find = true;
+					pos = i;
+				} 
+			}
+		} if (find == false) {
+			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
+				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_5) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+					find = true;
+					pos = i;
+				} 
+			}
+		}
+		return pos;
+	}
+	public void finishConsultation(){
+		System.out.println("Ingrese el numero de Documento del veterinario");
+		String cc = sc.nextLine();
+		System.out.println("Ingrese el nombre de la mascota");
+		String petName = sc.nextLine();
+		boolean find1 = false;
+		boolean find = false;
+		for (int i = 0; i < mascotas.getVeterinarians().length && !find; i++) {
+			if (mascotas.getVeterinarians()[i] != null && mascotas.getVeterinarians()[i].getCc().equalsIgnoreCase(cc)){
+				for (int j = 0; j < mascotas.getPets().length && !find1; j++) {
+					if (mascotas.getPets()[j] != null && mascotas.getPets()[j].getName().equalsIgnoreCase(petName)) {
+						if ((mascotas.getPets()[j].getStatus() == Status.EN_CONSULTA) && (mascotas.getPets()[j].getVeterinary() != null && mascotas.getPets()[j].getVeterinary() == mascotas.getVeterinarians()[i])) {
+							System.out.println("Eliga una de las siguientes opciones:\n"+
+												"(1) Para autorizar la salida de la mascota\n"+
+												"(2) Para hospitalizar a la mascota");
+							int opcion = sc.nextInt();
+							sc.nextLine();
+							if (opcion == 1) {
+								mascotas.getPets()[j].setStatus(Status.SALIDA_AUTORIZADA);
+							} else {
+								mascotas.getPets()[j].setStatus(Status.TRASLADO_A_HOSPITALIZACION);
+							}
+							mascotas.getVeterinarians()[i].setStatus("disponible");
+						} else {
+							System.out.println("La mascota no se encuentra en consulta con este veterinario");
+						}
+					}
+				}
+			} else {
+				System.out.println("El Documento de indentidad que ingreso no corresponde al de ningun veterinario");
+			}
+		}
+	}
+
 }
