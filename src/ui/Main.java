@@ -9,15 +9,30 @@ import java.util.Scanner;                         	// javac -cp src src/ui/Main.
 													// java -cp bin ui.Main
 													// javadoc -cp src -subpackages model:ui -d docs/javadoc/
 public class Main{
+	/**
+	* Description: herramienta proporcionada por java
+	*/
 	public static Scanner sc;
+	/**
+	* Description: variable que sirve para controlar la opcion 8 del menu
+	*/
 	public boolean logout = false;
+	/**
+	* Description: un objeto de tipo PetCenter
+	*/
 	public PetCenter mascotas = new PetCenter();
-
+	/**
+	* Description: metodo principal de la clase
+	* @param args String, I don't know what to write but I put it because when I generated the documentation it told me that it had no parameters, and then I write this so that that message stops appearing xD
+	*/
 	public static void main (String [] args){
 		sc = new Scanner(System.in);
 		Main main = new Main();
 		main.showMenu();
 	}
+	/**
+	* Description: este metodo muestra el menu principal
+	*/
 	public void showMenu(){
 		int option;
 		do{
@@ -36,6 +51,11 @@ public class Main{
 		menu(option);
 		}while(option != 8 || !logout);
 	}
+	/**
+	* Description: este metodo realiza los llamados a los metodos que corresponden segun la eleccion del usuario
+	* @param option int, esta variable es la que guarda la opcion del usuario y la que se encarga de elegir el metodo que corresponde
+	* pre: que el usuario haya realizado una eleccion en el metodo menu
+	*/
 	public void menu(int option){
 		switch(option){
 			case 1:
@@ -66,6 +86,9 @@ public class Main{
 				System.out.println("Opcion invalida");
 		}
 	}
+	/**
+	* Description: este metodo se encarga de pedir la informacion necesaria, y mandarla al PetCenter para registrar un veterinario
+	*/
 	public void newVet(){
 		System.out.println("Ingrese el Documento de indentidad del veterinario");
 		String cc = sc.nextLine();
@@ -79,6 +102,9 @@ public class Main{
 		String status = sc.nextLine();
 		mascotas.addVeterinary(cc, name, lastName, id, status);
 	}
+	/**
+	* Description: este metodo hace la comprobacion de los requisiton necesarion para eliminar un veterinario y actua en concecuencia
+	*/
 	public void deleteVet(){
 		boolean find = false;
 		for (int i = 0; i < mascotas.getPets().length && !find ; i++) {
@@ -92,6 +118,9 @@ public class Main{
 			mascotas.deleteVeterinary(id);
 		}
 	}
+	/**
+	* Description:  este metodo se encarga de pedir la informacion necesaria para registrar una mascota y su respectivo propietario y mandarla al PetCenter
+	*/
 	public void newPet(){
 		System.out.println("Ingrese el nombre de la mascota");
 		String petName = sc.nextLine();
@@ -156,6 +185,12 @@ public class Main{
 			}
 		}
 	}
+	/**
+	* Description: este metodo se encarga de verificar si la combinacion de mascota y propietario que se desea registrar ya existe o no
+	* @param petName String, esta variable contiene el nombre de la mascota que se desea registrar
+	* @param ownerName Strin, esta variable contiene el nombre del propietario que se desea registrar para una mascota
+	* @return find Boolean, devuelve un resultado verdadero en caso de que la combinacion mascota y propietario que se desea registrar ya existe
+	*/
 	public boolean comprobacion(String petName, String ownerName){
 		boolean find = false;
 		for(int i = 0; i < mascotas.getPets().length && !find; i++){
@@ -165,6 +200,9 @@ public class Main{
 		} 
 		return find;
 	}
+	/**
+	* Description: este metodo revisa el estado de la mascota que se desea retirar de la cola de espera, si cumple las condiciones, envia la informacion al PetCenter 
+	*/
 	public void removePet(){
 		System.out.println("Ingrese el nombre de la mascota");
 		String petName = sc.nextLine();
@@ -180,6 +218,9 @@ public class Main{
 			}
 		}
 	}
+	/**
+	* Description: 
+	*/
 	public void startConsultation(){
 		System.out.println("Ingrese el numero de Documento del veterinario");
 		String cc = sc.nextLine();

@@ -5,11 +5,12 @@ public class PetCenter{
 	public int MAX_PETS = 120;
 	private int order = 1;
 	//relationships
-	private Pet[] pets = new Pet[MAX_PETS];
-	private Veterinary[] veterinarians = new Veterinary[MAX_VETERINARIANS];
+	private Pet[] pets;
+	private Veterinary[] veterinarians;
 	//constructor
 	public PetCenter(){
-		
+		pets = new Pet[MAX_PETS];
+		veterinarians = new Veterinary[MAX_VETERINARIANS];
 	}
 	public void addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority){
 		boolean empty = false;
