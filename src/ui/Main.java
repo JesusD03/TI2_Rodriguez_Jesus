@@ -10,19 +10,19 @@ import java.util.Scanner;                         	// javac -cp src src/ui/Main.
 													// javadoc -cp src -subpackages model:ui -d docs/javadoc/
 public class Main{
 	/**
-	* Description: herramienta proporcionada por java
+	* Description: tool provided by java
 	*/
 	public static Scanner sc;
 	/**
-	* Description: variable que sirve para controlar la opcion 8 del menu
+	* Description: variable used to control option 8 of the menu
 	*/
 	public boolean logout = false;
 	/**
-	* Description: un objeto de tipo PetCenter
+	* Description: an object of type PetCenter
 	*/
 	public PetCenter mascotas = new PetCenter();
 	/**
-	* Description: metodo principal de la clase
+	* Description: class main method
 	* @param args String, I don't know what to write but I put it because when I generated the documentation it told me that it had no parameters, and then I write this so that that message stops appearing xD
 	*/
 	public static void main (String [] args){
@@ -31,7 +31,7 @@ public class Main{
 		main.showMenu();
 	}
 	/**
-	* Description: este metodo muestra el menu principal
+	* Description: this method shows the main menu
 	*/
 	public void showMenu(){
 		int option;
@@ -52,9 +52,9 @@ public class Main{
 		}while(option != 8 || !logout);
 	}
 	/**
-	* Description: este metodo realiza los llamados a los metodos que corresponden segun la eleccion del usuario
-	* @param option int, esta variable es la que guarda la opcion del usuario y la que se encarga de elegir el metodo que corresponde
-	* pre: que el usuario haya realizado una eleccion en el metodo menu
+	* Description: This method makes the calls to the corresponding methods according to the user's choice
+	* @param option int, This variable is the one that saves the user's option and the one that is in charge of choosing the corresponding method
+	* pre: that the user has made a choice in the menu method
 	*/
 	public void menu(int option){
 		switch(option){
@@ -87,7 +87,7 @@ public class Main{
 		}
 	}
 	/**
-	* Description: este metodo se encarga de pedir la informacion necesaria, y mandarla al PetCenter para registrar un veterinario
+	* Description: This method is responsible for requesting the necessary information, and sending it to the PetCenter to register a veterinarian
 	*/
 	public void newVet(){
 		System.out.println("Ingrese el Documento de indentidad del veterinario");
@@ -100,10 +100,10 @@ public class Main{
 		String id = sc.nextLine();
 		System.out.println("Ingrese el estado del veterinario");
 		String status = sc.nextLine();
-		mascotas.addVeterinary(cc, name, lastName, id, status);
+		System.out.println(mascotas.addVeterinary(cc, name, lastName, id, status));
 	}
 	/**
-	* Description: este metodo hace la comprobacion de los requisiton necesarion para eliminar un veterinario y actua en concecuencia
+	* Description:This method does the verification of the necessary requirements to eliminate a veterinarian and acts accordingly
 	*/
 	public void deleteVet(){
 		boolean find = false;
@@ -115,11 +115,11 @@ public class Main{
 		} if(find == false){
 			System.out.println("Ingrese el ID del veterinario que desea eliminar");
 			String id = sc.nextLine();
-			mascotas.deleteVeterinary(id);
+			System.out.println(mascotas.deleteVeterinary(id));
 		}
 	}
 	/**
-	* Description:  este metodo se encarga de pedir la informacion necesaria para registrar una mascota y su respectivo propietario y mandarla al PetCenter
+	* Description:  This method is responsible for requesting the necessary information to register a pet and its respective owner and send it to the PetCenter
 	*/
 	public void newPet(){
 		System.out.println("Ingrese el nombre de la mascota");
@@ -179,17 +179,17 @@ public class Main{
 			System.out.println("Esta combinacion de nombre de la mascota y del propietario ya existe");
 		} else {
 			if (chose == 1 || chose == 2) {
-				mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad, race);
+				System.out.println(mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad, race));
 			} else {
-				mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad);
+				System.out.println(mascotas.addPet(petName, age, specie, new Owner(idNumber, ownerName, phone, address),  sintomas,  prioridad));
 			}
 		}
 	}
 	/**
-	* Description: este metodo se encarga de verificar si la combinacion de mascota y propietario que se desea registrar ya existe o no
-	* @param petName String, esta variable contiene el nombre de la mascota que se desea registrar
-	* @param ownerName Strin, esta variable contiene el nombre del propietario que se desea registrar para una mascota
-	* @return find Boolean, devuelve un resultado verdadero en caso de que la combinacion mascota y propietario que se desea registrar ya existe
+	* Description: this method is in charge of verifying if the combination of pet and owner to be registered already exists or not
+	* @param petName String, this variable contains the name of the pet to be registered
+	* @param ownerName String, this variable contains the name of the owner that you want to register for a pet
+	* @return find Boolean, returns a true result in case the pet and owner combination to be registered already exists
 	*/
 	public boolean comprobacion(String petName, String ownerName){
 		boolean find = false;
@@ -201,7 +201,7 @@ public class Main{
 		return find;
 	}
 	/**
-	* Description: este metodo revisa el estado de la mascota que se desea retirar de la cola de espera, si cumple las condiciones, envia la informacion al PetCenter 
+	* Description: This method checks the status of the pet to be removed from the waiting queue, if it meets the conditions, it sends the information to the PetCenter
 	*/
 	public void removePet(){
 		System.out.println("Ingrese el nombre de la mascota");
@@ -212,19 +212,21 @@ public class Main{
 		for(int i = 0; i < mascotas.getPets().length && !find; i++){
 			if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getName().equalsIgnoreCase(petName)) && (mascotas.getPets()[i].getOwner() != null && mascotas.getPets()[i].getOwner().getIdNumber().equalsIgnoreCase(idNumber))) {
 				if (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
-					mascotas.removePet(petName, idNumber);
+					System.out.println(mascotas.removePet(petName, idNumber));
 				}
 				find = true;
 			}
 		}
 	}
 	/**
-	* Description: 
+	* Description:Assign a veterinarian to a consultation through their CC and their status.
+	* pre: requires the vet's Status has been saved as available so that it can be assigned to the consultation
 	*/
 	public void startConsultation(){
+		boolean find = false;
 		System.out.println("Ingrese el numero de Documento del veterinario");
 		String cc = sc.nextLine();
-		for (int i = 0; i < mascotas.getVeterinarians().length; i++) {
+		for (int i = 0; i < mascotas.getVeterinarians().length && !find; i++) {
 			if (mascotas.getVeterinarians()[i]!=null && mascotas.getVeterinarians()[i].getCc().equalsIgnoreCase(cc)) {
 				if (mascotas.getVeterinarians()[i].getStatus().equalsIgnoreCase("disponible")) {
 					if (nextConsultation() != -1) {
@@ -234,47 +236,51 @@ public class Main{
 						mascotas.getVeterinarians()[i].setPetsAttended(count++);
 					} else {
 						System.out.println("Ya no quedan mascotas por atender");
-					}
+					} find = true;
 				} else {
 					System.out.println("El veterinario que eligio no se encuentra disponible");
-				}
-			} else {
-				System.out.println("El numero de Documento que ingreso no corresponde al de ningun veterinario");
+				} find = true; 
 			}
 		}
+		if (find == false) {
+			System.out.println("El numero de Documento que ingreso no corresponde al de ningun veterinario");
+		}
 	}
+	/**
+	* Description: 
+	*/
 	public int nextConsultation(){
 		boolean find = false;
 		int pos = -1;
 		for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
-			if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_1) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+			if (mascotas.getPets()[i] != null && (mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_1) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
 				find = true;
 				pos = i;
 			} 
 		} if (find == false) {
 			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
-				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_2) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+				if (mascotas.getPets()[i] != null && (mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_2) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
 					find = true;
 					pos = i;
 				} 
 			}
 		} if (find == false) {
 			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
-				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_3) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+				if (mascotas.getPets()[i] != null && (mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_3) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
 					find = true;
 					pos = i;
 				} 
 			}
 		} if (find == false) {
 			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
-				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_4) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+				if (mascotas.getPets()[i] != null && (mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_4) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
 					find = true;
 					pos = i;
 				} 
 			}
 		} if (find == false) {
 			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
-				if ((mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_5) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
+				if (mascotas.getPets()[i] != null && (mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_5) && (mascotas.getPets()[i].getOrder() == (i+1)) && (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO)) {
 					find = true;
 					pos = i;
 				} 
@@ -305,6 +311,7 @@ public class Main{
 								mascotas.getPets()[j].setStatus(Status.TRASLADO_A_HOSPITALIZACION);
 							}
 							mascotas.getVeterinarians()[i].setStatus("disponible");
+							System.out.println("La consulta finalizo exitosamente");
 						} else {
 							System.out.println("La mascota no se encuentra en consulta con este veterinario");
 						}
@@ -318,7 +325,7 @@ public class Main{
 	public void petNumber(){
 		int total = 0;
 		for (int i = 0; i < mascotas.getPets().length; i++) {
-			if (mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
+			if (mascotas.getPets()[i] != null && mascotas.getPets()[i].getStatus() == Status.ESPERANDO_SER_ATENDIDO) {
 				total++;
 			}
 		}
@@ -333,11 +340,15 @@ public class Main{
 			}
 		} if (find == false) {
 			int max = 0;
+			int pos = 0;
 			for (int i = 0; i < mascotas.getVeterinarians().length ; i++) {
 				if (mascotas.getVeterinarians()[i] != null && max < mascotas.getVeterinarians()[i].getPetsAttended()) {
 					max = mascotas.getVeterinarians()[i].getPetsAttended();
+					pos = i;
 				}
-			} System.out.println("El veterinario que tuvo el mayor numero de consultas fue: " + mascotas.getVeterinarians()[max].getName());
+			} if (mascotas.getVeterinarians()[pos] != null) {
+				System.out.println("El veterinario que tuvo el mayor numero de consultas fue: " + mascotas.getVeterinarians()[pos].getName());
+			} 
 			int count =0;
 			for (int i = 0; i < mascotas.getPets().length && ! find; i++) {
 				if ((mascotas.getPets()[i] != null && mascotas.getPets()[i].getPriority() == Priority.PRIORIDAD_1) && (mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA || mascotas.getPets()[i].getStatus() == Status.TRASLADO_A_HOSPITALIZACION)) {
@@ -377,7 +388,7 @@ public class Main{
 				} total++;
 			} 
 			percentage = (without * 100)/total;
-			System.out.println("El porcentaje de mascotas que se fueron sin atender son: "+percentage+" %");
+			System.out.println("El porcentaje de mascotas que se fueron sin ser atendidas es: "+percentage+" %");
 			for (int i = 0; i < mascotas.getPets().length; i++) {
 				if (mascotas.getPets()[i] != null && mascotas.getPets()[i].getStatus() == Status.SALIDA_AUTORIZADA) {
 					mascotas.getPets()[i] = null;

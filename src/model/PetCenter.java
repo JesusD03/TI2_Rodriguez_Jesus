@@ -12,67 +12,77 @@ public class PetCenter{
 		pets = new Pet[MAX_PETS];
 		veterinarians = new Veterinary[MAX_VETERINARIANS];
 	}
-	public void addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority){
+	public String addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority){
 		boolean empty = false;
+		String answer = "";
 		for(int i = 0; i < MAX_PETS && !empty; i++){
 			if(pets[i] == null){
 				pets[i] = new Pet(name, age, specie, owner, symptoms, priority, order);
 				empty = true;
 				order ++;
-				System.out.print("the pet was added successfully\n");
+				answer = "the pet was added successfully\n";
 			}
 		} if (empty == false) {
-			System.out.println("No se pudo agregar la mascota porque se llego a la capacidad maxima\n");
+			answer = "No se pudo agregar la mascota porque se llego a la capacidad maxima\n";
 		}
+		return answer;
 	}
-	public void addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority, String race){
+	public String addPet(String name, int age, Specie specie, Owner owner, String symptoms, Priority priority, String race){
 		boolean empty = false;
+		String answer = "";
 		for(int i = 0; i < MAX_PETS && !empty; i++){
 			if(pets[i] == null){
 				pets[i] = new Pet(name, age, specie, owner, symptoms, priority, order, race);
 				empty = true;
 				order ++;
-				System.out.print("the pet was added successfully\n");
+				answer = "the pet was added successfully\n";
 			}
 		} if (empty == false) {
-			System.out.println("No se pudo agregar la mascota porque se llego a la capacidad maxima\n");
+			answer = "No se pudo agregar la mascota porque se llego a la capacidad maxima\n";
 		}
+		return answer;
 	}
-	public void removePet(String name, String idNumber){
+	public String removePet(String name, String idNumber){
 		boolean find = false;
+		String answer = "";
 		for(int i = 0; i < MAX_PETS && !find; i++){
 			if ((pets[i] != null && pets[i].getName().equalsIgnoreCase(name)) && (pets[i].getOwner() != null && pets[i].getOwner().getIdNumber().equalsIgnoreCase(idNumber))) {
 				pets[i].setStatus(Status.SALIDA_SIN_ATENCION);
 				find = true;
-				System.out.println("The pet was removed from the tail");
+				answer = "The pet was removed from the tail\n";
 			}
 		} if (find == false) {
-			System.out.println("The pet could not be removed because it is not waiting to be treated");
+			answer = "The pet could not be removed because it is not waiting to be treated\n";
 		}
+		return answer;
 	}
-	public void addVeterinary(String cc, String name, String lastName, String id, String status){
+	public String addVeterinary(String cc, String name, String lastName, String id, String status){
 		boolean empty = false;
+		String answer = ""; 
 		for(int i = 0; i < MAX_VETERINARIANS && !empty; i++){
 			if(veterinarians[i] == null){
 				veterinarians[i] = new Veterinary(cc, name, lastName, id, status);
 				empty = true;
-				System.out.println("The vet was successfully added");
+				answer = "The vet was successfully added\n";
 			}
 		} if (empty == false) {
-			System.out.println("Could not add vet because max was reached");
+			answer = "Could not add vet because max was reached\n";
 		}
+		return answer;
 	}
-	public void deleteVeterinary(String id){
+	public String deleteVeterinary(String id){
 		boolean find = false;
+		String answer = "";
 		for(int i = 0; i < MAX_VETERINARIANS && !find; i++){
 			if(veterinarians[i] != null && veterinarians[i].getId().equalsIgnoreCase(id)){
 				find = true;
 				veterinarians[i] = null;
-				System.out.println("The vet was successfully eliminated");
+				answer = "The vet was successfully eliminated\n";
 			}
 		} if (find == false) {
-			System.out.println("El Id que ingreso no coincide con el de ningun veterinario");
+			answer = "El Id que ingreso no coincide con el de ningun veterinario\n";
 		}
+		return answer;
 	}
 	//get
 	public Pet[] getPets(){
