@@ -1,6 +1,8 @@
 package ui; 
 
 import model.PetCenter;
+import model.PetNursery;
+import model.Use;
 import model.Specie;
 import model.Status;
 import model.Priority;
@@ -21,6 +23,7 @@ public class Main{
 	* Description: an object of type PetCenter
 	*/
 	public PetCenter mascotas = new PetCenter();
+	public PetNursery guarderia = new PetNursery();
 	/**
 	* Description: class main method
 	* @param args String, I don't know what to write but I put it because when I generated the documentation it told me that it had no parameters, and then I write this so that that message stops appearing xD
@@ -28,16 +31,38 @@ public class Main{
 	public static void main (String [] args){
 		sc = new Scanner(System.in);
 		Main main = new Main();
-		main.showMenu();
+		main.mainMenu();
+	}
+	public void mainMenu(){
+		int choose;
+		do{
+		System.out.println("\n-------------------------------------\n"+
+			"\nChoose the service you want to enter:\n" +
+			"1 Veterinary emergencies\n" +
+			"2 Pet nursery\n" +
+			"Another number to end the program\n");
+			choose = sc.nextInt();
+			sc.nextLine();
+			switch(choose){
+				case 1:
+				petCenterMenu();
+				break;
+				case 2:
+				petNurseryMenu();
+				break;
+				default:
+					System.out.println("Bye!");
+			}
+		}while(choose == 1 || choose == 2);
 	}
 	/**
-	* Description: this method shows the main menu
+	* Description: this method shows the PetCenter's menu
 	*/
-	public void showMenu(){
+	public void petCenterMenu(){
 		int option;
 		do{
-		System.out.println ("-------------------------------------\n"+
-							"Bienvenido al PetCenter\nEliga una de las siguientes opciones:\n"+
+		System.out.println ("\n-------------------------------------\n"+
+							"Bienvenido al PetCenter\nElija una de las siguientes opciones:\n"+
 							"(1) Para registrar un nuevo veterinario\n"+
 							"(2) Para eliminar un veterinario\n"+
 							"(3) Para registrar una mascota\n"+
@@ -50,6 +75,15 @@ public class Main{
 		sc.nextLine();
 		menu(option);
 		}while(option != 8 || !logout);
+	}
+	public void petNurseryMenu(){
+		
+		System.out.println("Bienvenido a la guarderia de mascotas\nElija una de las siguientes opciones:\n" +
+							"1 Para registrar una nueva mascota\n" +
+							"2 Para buscar una mascota en la guarderia\n" +
+							"3 Para ver el mapa de la guarderia\n" +
+							"4 Para ver la informacion de un habitat\n" +
+							"5 Para ver las estadisticas\n");
 	}
 	/**
 	* Description: This method makes the calls to the corresponding methods according to the user's choice
